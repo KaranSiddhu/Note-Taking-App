@@ -1,0 +1,20 @@
+import React from 'react';
+import {Text, ScrollView, SectionList,View, StyleSheet} from 'react-native';
+
+const IndexScreen = () => {
+    return (
+
+      <View>
+        
+        <Text>Hello</Text>
+
+      </View>
+
+    );
+};
+
+const styles = StyleSheet.create({
+
+});
+
+export default IndexScreen;

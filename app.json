@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Blog_App",
-    "slug": "Blog_App",
+    "name": "Note App",
+    "slug": "Note_App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Note_App_Icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
