@@ -2,21 +2,24 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import IndexScreen from './src/screens/IndexScreen';
+import { BlogProvider } from './src/context/BlogContext';
 
-const navigation = createStackNavigator(
-  {
-    Home: IndexScreen
-  },
-  {
-    initialRouteName:'Home',
-    defaultNavigationOptions: {
-      title: 'Note App'
+const navigator = createStackNavigator(
+    {
+        Home: IndexScreen
+    },
+    {
+        initialRouteName: 'Home',
+        defaultNavigationOptions:{
+            title: 'Note App'
+        }
     }
-  }
 );
 
-const App = createAppContainer(navigation);
+const App = createAppContainer(navigator);
 
 export default () => {
-  return <App />;
+    return <BlogProvider>
+         <App />
+     </BlogProvider>
 }
