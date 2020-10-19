@@ -17,7 +17,7 @@ function addBlogPost(){
         runMyBlogReducer({type: 'add_blogpost'})
 }
  
-export default const {Context, Provider} = createDataContext(
+export const {Context, Provider} = createDataContext(
     blogReducer, 
     { addBlogPost }, 
     []
