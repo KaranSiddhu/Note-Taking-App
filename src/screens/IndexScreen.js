@@ -1,23 +1,46 @@
 import React, { useContext } from 'react';
-import {View, FlatList, Button, Text, StyleSheet} from 'react-native';
-import BlogContext from '../context/BlogContext';
+import {View, FlatList, TouchableOpacity, Button, Text, StyleSheet} from 'react-native';
+import { Context } from '../context/BlogContext';
+import { AntDesign } from '@expo/vector-icons';
 
-const IndexScreen = () => {
-    const {data, addBlogPost} = useContext(BlogContext);
+const IndexScreen = ({navigation}) => {
+    const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
     return (
-        <View>
+        <View style= {styles.container}>
             
             <Button 
                 onPress= {() => addBlogPost()}
                 title= 'Add Blog'
             />
 
+           
             <FlatList 
-                data= {data}
-                keyExtractor= {(item) => item.title}
+                data= {state}
+                keyExtractor= {(item) => item.id + " "}
                 renderItem= {({ item }) => {
-                    return <Text>{item.title}</Text>
+                    return (
+                        <TouchableOpacity 
+                            style= {styles.blogPostStyle} 
+                            onPress= {() => navigation.navigate('ShowScreen', {
+                                blogTitle: item.title
+                            })}
+                        >
+                            
+                                <Text style={styles.title}>{item.title}</Text>
+
+                                <TouchableOpacity onPress= {() => deleteBlogPost(item.id)}>
+                                    
+                                    <AntDesign
+                                        name="delete" 
+                                        size={24}
+                                        color="black"
+                                    />
+                                
+                                </TouchableOpacity>
+
+                        </TouchableOpacity>
+                    );
                 } }
 
             />
@@ -26,6 +49,25 @@ const IndexScreen = () => {
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container:{
+        margin:10,
+        flex:1
+    },
+    blogPostStyle:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderColor: 'red',
+        borderWidth: 1,
+        borderRadius: 12,
+        marginBottom: 12,
+        padding:10
+    },
+    title:{
+        fontSize:18,
+        fontWeight: 'bold'
+    }
+
+});
 
 export default IndexScreen;
