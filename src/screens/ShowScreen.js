@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { Context } from '../context/NameContext';
+import { Context } from '../context/NoteContext';
 import { FontAwesome } from '@expo/vector-icons'; 
 
 export default function ShowScreen({navigation}){
@@ -46,5 +46,8 @@ const styles = StyleSheet.create({
     },
     content:{
         fontSize:17
+    },
+    editIcon:{
+        marginRight: 12
     }
 });

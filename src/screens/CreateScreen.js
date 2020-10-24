@@ -6,7 +6,7 @@ import { Context } from '../context/NameContext';
 export default function CreateScreen({ navigation }){
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const { addBlogPost } = useContext(Context);
+    const { addNote } = useContext(Context);
     
     return (
         <View style={styles.container}>
@@ -36,7 +36,7 @@ export default function CreateScreen({ navigation }){
                     if(title === '' || content === '')
                         return Alert.alert('Please fill in the required fields');
                     else{
-                        addBlogPost(title, content, () => { navigation.navigate('Home'); })
+                        addNote(title, content, () => { navigation.navigate('Home'); })
                     }
                 }}
             >

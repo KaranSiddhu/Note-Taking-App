@@ -5,7 +5,7 @@ import IndexScreen from './src/screens/IndexScreen';
 import ShowScreen from './src/screens/ShowScreen';
 import CreateScreen from './src/screens/CreateScreen';
 import EditScreen from './src/screens/EditScreen';
-import { Provider } from './src/context/NameContext';
+import { Provider } from './src/context/NoteContext';
 
 const navigator = createStackNavigator(
     {

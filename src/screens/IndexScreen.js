@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import {View, FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import { Context } from '../context/NameContext';
+import { Context } from '../context/NoteContext';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 export default function IndexScreen ({navigation}){
-    const { state, deleteBlogPost } = useContext(Context);
+    const { state, deleteNote } = useContext(Context);
     
     return (
 
@@ -27,7 +27,7 @@ export default function IndexScreen ({navigation}){
                             
                                 <Text style={styles.title}>{item.title} - {item.id}</Text>
 
-                                <TouchableOpacity onPress= {() => deleteBlogPost(item.id)}>
+                                <TouchableOpacity onPress= {() => deleteNote(item.id)}>
                                     
                                     <AntDesign
                                         name="delete" 
