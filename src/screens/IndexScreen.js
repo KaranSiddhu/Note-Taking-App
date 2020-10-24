@@ -1,33 +1,31 @@
 import React, { useContext } from 'react';
-import {View, FlatList, TouchableOpacity, Button, Text, StyleSheet} from 'react-native';
-import { Context } from '../context/BlogContext';
+import {View, FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import { Context } from '../context/NameContext';
 import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
-const IndexScreen = ({navigation}) => {
-    const { state, addBlogPost, deleteBlogPost } = useContext(Context);
-
+export default function IndexScreen ({navigation}){
+    const { state, deleteBlogPost } = useContext(Context);
+    
     return (
+
         <View style= {styles.container}>
             
-            <Button 
-                onPress= {() => addBlogPost()}
-                title= 'Add Blog'
-            />
+            {state.length === 0 ? <Text style={styles.warning}>Press the ' + ' icon to add a new note</Text> : null}
 
-           
             <FlatList 
                 data= {state}
-                keyExtractor= {(item) => item.id + " "}
+                keyExtractor= {(item) => item.id + ' '}
                 renderItem= {({ item }) => {
                     return (
                         <TouchableOpacity 
                             style= {styles.blogPostStyle} 
-                            onPress= {() => navigation.navigate('ShowScreen', {
-                                blogTitle: item.title
+                            onPress= {() => navigation.navigate('Show', {
+                                blogId: item.id
                             })}
                         >
                             
-                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.title}>{item.title} - {item.id}</Text>
 
                                 <TouchableOpacity onPress= {() => deleteBlogPost(item.id)}>
                                     
@@ -49,10 +47,29 @@ const IndexScreen = ({navigation}) => {
     );
 }
 
+IndexScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: () => (
+                <TouchableOpacity
+                    onPress= {() => navigation.navigate('Create')}
+                >
+
+                    <Feather name="plus" size={30} style={styles.addIcon} color="black" />
+
+                </TouchableOpacity>
+            )
+    };
+}
+
 const styles = StyleSheet.create({
     container:{
         margin:10,
         flex:1
+    },
+    warning:{
+        fontSize:20,
+        fontWeight:'bold',
+        textAlign:'center'
     },
     blogPostStyle:{
         flexDirection: 'row',
@@ -66,8 +83,9 @@ const styles = StyleSheet.create({
     title:{
         fontSize:18,
         fontWeight: 'bold'
+    },
+    addIcon:{
+        marginRight: 10
     }
 
 });
-
-export default IndexScreen;
