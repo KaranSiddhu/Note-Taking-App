@@ -1,17 +1,28 @@
-import React, { useContext } from 'react';
-import {View, FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import React, { useContext, useEfect, useEffect } from 'react';
+import {View, FlatList, TouchableOpacity, ToastAndroid, Text, StyleSheet} from 'react-native';
 import { Context } from '../context/NoteContext';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 export default function IndexScreen ({navigation}){
-    const { state, deleteNote } = useContext(Context);
+    const { state, deleteNote, getNotes } = useContext(Context);
+    
+    useEffect(() =>{
+        getNotes();
+
+        const listener = navigation.addListener('didFocus', () => {
+            getNotes();
+        });
+
+        return () => {
+            listener.remove();
+        }
+
+    }, [])
     
     return (
 
         <View style= {styles.container}>
-            
-            {state.length === 0 ? <Text style={styles.warning}>Press the ' + ' icon to add a new note</Text> : null}
 
             <FlatList 
                 data= {state}
@@ -27,7 +38,10 @@ export default function IndexScreen ({navigation}){
                             
                                 <Text style={styles.title}>{item.title} - {item.id}</Text>
 
-                                <TouchableOpacity onPress= {() => deleteNote(item.id)}>
+                                <TouchableOpacity onPress= {() => {
+                                        deleteNote(item.id)
+                                        ToastAndroid.show('Please wait',ToastAndroid.SHORT);
+                                    }}>
                                     
                                     <AntDesign
                                         name="delete" 
@@ -66,11 +80,7 @@ const styles = StyleSheet.create({
         margin:10,
         flex:1
     },
-    warning:{
-        fontSize:20,
-        fontWeight:'bold',
-        textAlign:'center'
-    },
+
     blogPostStyle:{
         flexDirection: 'row',
         justifyContent: 'space-between',
